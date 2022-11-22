@@ -44,6 +44,17 @@ window.addEventListener('DOMContentLoaded', () => {
       o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
       a: 1,
     },
+    // two new questions
+    {
+      q: 'What is the capital of Chile',
+      o: ['Lima', 'Valparaiso', 'Santiago', 'Bogotá'],
+      a: 2,
+    },
+    {
+      q: 'Which is the biggest planet of the solar system',
+      o: ['Mercury', 'Saturn', 'Jupiter', 'Uranus'],
+      a: 2,
+    },
   ];
 
   // function to Display the quiz questions and answers from the object
@@ -76,15 +87,32 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if (quizItem.a == i) {
           //change background color of li element here
+          // IF the answer to this question is the current option, highlight in green
+          liElement.style.backgroundColor = '#99FF99';
         }
 
-        if (radioElement.checked) {
+        if (radioElement.checked && quizItem.a == i) {
           // code for task 1 goes here
+          // IF this option was selected AND the option number matches the answer,
+          // then add one point to the score
+          score += 1;
         }
       }
     });
+    // After calculating the score, show
+    // in the page
+    const scoreElement = document.querySelector('#score');
+    scoreElement.innerHTML = `Your score is ${score} points`;
   };
 
   // call the displayQuiz function
   displayQuiz();
+
+  const submit = document.querySelector('#btnSubmit');
+  submit.addEventListener('click', calculateScore);
+
+  const resetButton = document.querySelector('#btnReset');
+  resetButton.addEventListener('click', function () {
+    window.location.reload();
+  });
 });
